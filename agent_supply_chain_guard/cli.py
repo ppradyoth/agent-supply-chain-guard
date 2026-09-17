@@ -1,6 +1,7 @@
 import argparse
 import json
 from pathlib import Path
+from .ai import explain
 from .scanner import scan
 
 
@@ -11,6 +12,8 @@ def main() -> int:
     target.add_argument("path", type=Path)
     target.add_argument("--format", choices=("text", "json"), default="text")
     target.add_argument("--quiet", action="store_true", help="Only set the exit status")
+    target.add_argument("--ai-provider", choices=("openai", "anthropic"), help="Add an optional AI review")
+    target.add_argument("--model", help="Override the provider model")
     sub.add_parser("examples")
     args = parser.parse_args()
     if args.command == "examples":
@@ -23,6 +26,8 @@ def main() -> int:
         for finding in findings:
             print(f"{finding.path}:{finding.line}: [{finding.rule}] {finding.message}")
         print(f"{len(findings)} finding(s)")
+        if args.ai_provider:
+            print(f"\nAI review ({args.ai_provider}):\n{explain(findings, args.ai_provider, args.model)}")
     return 1 if findings else 0
 
 
