@@ -1,0 +1,11 @@
+name: Rule or feature idea
+description: Suggest a focused improvement
+title: "idea: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What agent supply-chain risk should this address?
+    validations:
+      required: true
