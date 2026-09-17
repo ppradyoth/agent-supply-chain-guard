@@ -34,7 +34,7 @@ examples/poisoned-skill.md:7: [unrestricted-permission] broad or unrestricted pe
 ## Install and scan in 30 seconds
 
 ```bash
-pipx install git+https://github.com/ppradyoth/agent-supply-chain-guard.git
+pipx install agent-supply-chain-guard
 agent-supply-chain-guard scan .
 ```
 
@@ -91,7 +91,7 @@ agent-supply-chain-guard scan . --format json
 Rules are the private, free baseline. If you want a second-pass explanation and prioritization, install one provider extra and export your own key in the shell:
 
 ```bash
-pipx install 'git+https://github.com/ppradyoth/agent-supply-chain-guard.git#egg=agent-supply-chain-guard[openai]'
+pipx install 'agent-supply-chain-guard[openai]'
 export OPENAI_API_KEY='your-key'
 agent-supply-chain-guard scan . --ai-provider openai
 ```
@@ -99,7 +99,7 @@ agent-supply-chain-guard scan . --ai-provider openai
 Claude is the equivalent:
 
 ```bash
-pipx install 'git+https://github.com/ppradyoth/agent-supply-chain-guard.git#egg=agent-supply-chain-guard[anthropic]'
+pipx install 'agent-supply-chain-guard[anthropic]'
 export ANTHROPIC_API_KEY='your-key'
 agent-supply-chain-guard scan . --ai-provider anthropic
 ```
