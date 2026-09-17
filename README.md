@@ -1,40 +1,76 @@
 # Agent Supply Chain Guard
 
-Scan AI-agent skills, MCP manifests, and configuration before they enter a development environment or CI pipeline.
+## Your AI agent can be compromised by a file it reads.
 
-Agent Supply Chain Guard is a small, dependency-free starter scanner for the risks showing up in agent ecosystems: hidden instructions, suspicious network or process execution, embedded credentials, and overly broad tool permissions. It reports signals for human review; it does not claim to prove exploitability.
+An innocent-looking `SKILL.md`, MCP manifest, plugin, or README can contain instructions that redirect an agent, expose credentials, run commands, or request far more access than it needs.
 
-## Quick start
+**Agent Supply Chain Guard finds those signals before they reach your agent runtime.** It is free, local-first, dependency-free, and takes one command to run.
+
+## Install and scan in 30 seconds
 
 ```bash
-python -m agent_supply_chain_guard examples
-python -m agent_supply_chain_guard scan path/to/skill-or-config
+pipx install agent-supply-chain-guard
+agent-supply-chain-guard scan .
 ```
 
-Exit status is `0` when no signals are found and `1` when findings are reported.
+Or run it without installing:
 
-## What it checks
+```bash
+python -m pip install agent-supply-chain-guard
+agent-supply-chain-guard scan path/to/agent-project
+```
 
-- prompt-injection language in `SKILL.md`, README, and manifest text
-- shell/process execution and dangerous URL schemes
-- likely secrets and private keys
-- wildcard or unrestricted tool permissions
-- suspicious Unicode control characters
+A clean scan exits `0`. A scan with security signals exits `1`, so it works naturally in CI:
+
+```bash
+agent-supply-chain-guard scan . --quiet
+```
 
 ## GitHub Action
 
 ```yaml
-- uses: ppradyoth/agent-supply-chain-guard@main
-  with:
-    path: .
+name: Agent security
+on: [push, pull_request]
+permissions: {}
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ppradyoth/agent-supply-chain-guard@main
+        with:
+          path: .
 ```
 
-Pin the action to a reviewed commit in production. Findings are intentionally conservative and should be reviewed in context.
+Pin third-party actions to reviewed commits for production use.
 
-## Status
+## What it catches
 
-Early release. The project is designed to grow through narrowly scoped rules, reproducible fixtures, and provider-neutral examples.
+| Signal | Why it matters |
+| --- | --- |
+| Hidden instruction language | Content can attempt to hijack agent behavior |
+| Shell and process execution | A prompt can become a code-execution path |
+| Credentials and private keys | Secrets can be copied into tools, logs, or outputs |
+| Dangerous URL schemes | Files and network handlers can cross trust boundaries |
+| Wildcard permissions | One compromised tool can gain excessive reach |
+| Invisible Unicode controls | Text can look harmless while behaving differently |
 
-## Contributing and security
+JSON output is available for automation:
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md). Licensed under Apache-2.0.
+```bash
+agent-supply-chain-guard scan . --format json
+```
+
+## Important limitation
+
+This is a **signal scanner**, not a proof of exploitability. Findings need human review, and a clean result does not make an agent or dependency safe. The goal is to make the first security check cheap enough that teams actually run it.
+
+## Why now?
+
+Agent security has moved beyond chatbot jailbreaks. MCP servers, agent skills, plugins, OAuth grants, and tool calls are becoming a software supply chain—and every new connection adds another place for untrusted instructions or excessive authority to enter.
+
+## Contributing
+
+Add a narrowly scoped rule with a harmless fixture and a test. See [CONTRIBUTING.md](CONTRIBUTING.md). Please never commit real credentials or client data.
+
+Licensed under Apache-2.0.

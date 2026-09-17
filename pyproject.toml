@@ -10,9 +10,14 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "Apache-2.0"}
 authors = [{name = "Pradyoth Prabhakar"}]
+keywords = ["ai-security", "ai-agents", "mcp", "prompt-injection", "supply-chain"]
+classifiers = ["Development Status :: 3 - Alpha", "Programming Language :: Python :: 3", "Topic :: Security"]
 
 [project.scripts]
 agent-supply-chain-guard = "agent_supply_chain_guard.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["agent_supply_chain_guard*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

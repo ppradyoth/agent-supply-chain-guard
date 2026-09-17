@@ -23,7 +23,7 @@ RULES = (
 
 def scan(path: Path) -> list[Finding]:
     findings = []
-    paths = [path] if path.is_file() else [p for p in path.rglob("*") if p.is_file() and p.stat().st_size < 2_000_000]
+    paths = [path] if path.is_file() else [p for p in path.rglob("*") if p.is_file() and p.stat().st_size < 2_000_000 and ".git" not in p.parts and ".venv" not in p.parts]
     for candidate in paths:
         try:
             lines = candidate.read_text(encoding="utf-8").splitlines()
