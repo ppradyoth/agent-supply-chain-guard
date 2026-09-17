@@ -1,5 +1,7 @@
 # Agent Supply Chain Guard
 
+[![Tests](https://github.com/ppradyoth/agent-supply-chain-guard/actions/workflows/test.yml/badge.svg)](https://github.com/ppradyoth/agent-supply-chain-guard/actions/workflows/test.yml) [![Marketplace](https://img.shields.io/badge/GitHub%20Action-Marketplace-2088FF?logo=github)](https://github.com/marketplace/actions/agent-supply-chain-guard) [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+
 <p align="center">
   <img src="assets/agent-supply-chain-guard-hero.jpg" alt="A blue shield protecting an AI agent from malicious supply-chain artifacts" width="100%">
 </p>
@@ -11,6 +13,23 @@
 An innocent-looking `SKILL.md`, MCP manifest, plugin, or README can contain instructions that redirect an agent, expose credentials, run commands, or request far more access than it needs.
 
 **Agent Supply Chain Guard finds those signals before they reach your agent runtime.** It is free, local-first, dependency-free, and takes one command to run.
+
+## See it catch a poisoned skill in 10 seconds
+
+```bash
+git clone https://github.com/ppradyoth/agent-supply-chain-guard.git
+cd agent-supply-chain-guard
+python -m agent_supply_chain_guard scan examples/poisoned-skill.md
+```
+
+Expected output:
+
+```text
+examples/poisoned-skill.md:5: [hidden-instruction] instruction-like text found in supply-chain content
+examples/poisoned-skill.md:6: [process-execution] process execution reference
+examples/poisoned-skill.md:7: [unrestricted-permission] broad or unrestricted permission
+3 finding(s)
+```
 
 ## Install and scan in 30 seconds
 
@@ -43,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ppradyoth/agent-supply-chain-guard@main
+      - uses: ppradyoth/agent-supply-chain-guard@v0.1.0
         with:
           path: .
 ```
