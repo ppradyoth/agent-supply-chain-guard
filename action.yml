@@ -1,0 +1,12 @@
+name: Agent Supply Chain Guard
+description: Scan AI-agent skills, MCP manifests, and configs for supply-chain risk signals
+inputs:
+  path:
+    description: Directory or file to scan
+    required: false
+    default: .
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: python -m agent_supply_chain_guard scan "${{ inputs.path }}"
