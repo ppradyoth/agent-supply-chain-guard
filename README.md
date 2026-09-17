@@ -61,6 +61,26 @@ JSON output is available for automation:
 agent-supply-chain-guard scan . --format json
 ```
 
+## Optional GPT or Claude review
+
+Rules are the private, free baseline. If you want a second-pass explanation and prioritization, install one provider extra and export your own key in the shell:
+
+```bash
+pipx install 'git+https://github.com/ppradyoth/agent-supply-chain-guard.git#egg=agent-supply-chain-guard[openai]'
+export OPENAI_API_KEY='your-key'
+agent-supply-chain-guard scan . --ai-provider openai
+```
+
+Claude is the equivalent:
+
+```bash
+pipx install 'git+https://github.com/ppradyoth/agent-supply-chain-guard.git#egg=agent-supply-chain-guard[anthropic]'
+export ANTHROPIC_API_KEY='your-key'
+agent-supply-chain-guard scan . --ai-provider anthropic
+```
+
+Use `AGENT_GUARD_OPENAI_MODEL` or `AGENT_GUARD_ANTHROPIC_MODEL` to choose a model, or pass `--model`. The key is read from the environment and never printed or saved. Only matched finding evidence is sent for review; do not use AI mode on sensitive repositories unless that disclosure is acceptable. Provider fees and retention policies apply. AI output is advisory and does not alter the deterministic exit status.
+
 ## Important limitation
 
 This is a **signal scanner**, not a proof of exploitability. Findings need human review, and a clean result does not make an agent or dependency safe. The goal is to make the first security check cheap enough that teams actually run it.
