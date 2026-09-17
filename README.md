@@ -1,5 +1,11 @@
 # Agent Supply Chain Guard
 
+<p align="center">
+  <img src="assets/agent-supply-chain-guard-hero.jpg" alt="A blue shield protecting an AI agent from malicious supply-chain artifacts" width="100%">
+</p>
+
+<p align="center"><strong>Before your agent reads it, scan it.</strong></p>
+
 ## Your AI agent can be compromised by a file it reads.
 
 An innocent-looking `SKILL.md`, MCP manifest, plugin, or README can contain instructions that redirect an agent, expose credentials, run commands, or request far more access than it needs.
