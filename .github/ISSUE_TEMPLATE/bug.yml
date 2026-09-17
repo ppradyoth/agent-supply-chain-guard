@@ -1,0 +1,17 @@
+name: Bug report
+description: Report a reproducible scanner problem
+title: "bug: "
+body:
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Include a minimal harmless fixture and the command you ran.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
