@@ -9,7 +9,7 @@ An innocent-looking `SKILL.md`, MCP manifest, plugin, or README can contain inst
 ## Install and scan in 30 seconds
 
 ```bash
-pipx install agent-supply-chain-guard
+pipx install git+https://github.com/ppradyoth/agent-supply-chain-guard.git
 agent-supply-chain-guard scan .
 ```
 
