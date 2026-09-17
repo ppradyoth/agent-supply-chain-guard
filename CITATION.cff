@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+title: Agent Supply Chain Guard
+message: If this project helps your work, cite it or link to the repository.
+type: software
+authors:
+  - family-names: Prabhakar
+    given-names: Pradyoth
+repository-code: https://github.com/ppradyoth/agent-supply-chain-guard
+license: Apache-2.0
+version: 0.1.0
