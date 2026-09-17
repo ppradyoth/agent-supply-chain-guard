@@ -1,5 +1,9 @@
 name: Agent Supply Chain Guard
 description: Scan AI-agent skills, MCP manifests, and configs for supply-chain risk signals
+author: Pradyoth Prabhakar
+branding:
+  icon: shield
+  color: blue
 inputs:
   path:
     description: Directory or file to scan
